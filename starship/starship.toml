@@ -51,8 +51,9 @@ disabled = false
 
 [docker_context]
 symbol = "󰡨"
-format = '[$symbol ($version )]($style)'
-detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+# format = '[$symbol ($version )]($style)'
+format = '[$symbol]($style)'
+# detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile", ".dockerignore"]
 
 [kubernetes]
 symbol = "☸"
@@ -72,7 +73,7 @@ detect_files = ["go.mod", "go.sum", "glide.yaml", "Gopkg.yml", "Gopkg.lock", ".g
 
 [python]
 symbol = "󰌠"
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+format = '[${symbol} ${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 detect_files = ["requirements.txt", "pyproject.toml", "Pipfile", "setup.py", "setup.cfg", "tox.ini", ".python-version"]
 
 [lua]
