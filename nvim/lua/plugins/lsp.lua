@@ -9,7 +9,7 @@ return {
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim',       opts = {} },
 
     -- Allows extra capabilities provided by nvim-cmp
     'hrsh7th/cmp-nvim-lsp',
@@ -227,7 +227,12 @@ return {
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      'stylua', -- Used to format Lua code
+      'stylua',             -- Used to format Lua code
+      'codelldb',           -- Debug adapter for Rust, C/C++, Swift
+      'delve',              -- Go debugger
+      'debugpy',            -- Python debug adapter
+      'js-debug-adapter',   -- JavaScript/TypeScript debug adapter
+      'bash-debug-adapter', -- Bash debug adapter
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
