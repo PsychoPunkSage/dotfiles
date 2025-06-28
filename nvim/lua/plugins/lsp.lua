@@ -9,7 +9,7 @@ return {
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim',       opts = {} },
+    { 'j-hui/fidget.nvim', opts = {} },
 
     -- Allows extra capabilities provided by nvim-cmp
     'hrsh7th/cmp-nvim-lsp',
@@ -44,6 +44,21 @@ return {
     --    That is to say, every time a new file is opened that is associated with
     --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
     --    function will be executed to configure the current buffer
+    -- Apply custom highlights
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+      border = 'double',
+      max_width = 120,
+      max_height = 30,
+      focusable = false,
+    })
+    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = 'rounded',
+      max_width = 100,
+      max_height = 20,
+      focusable = false,
+      style = 'minimal',
+    })
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
       callback = function(event)
@@ -56,6 +71,23 @@ return {
           mode = mode or 'n'
           vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
+
+        -- Quick fix for current line
+        map('<leader>qf', vim.lsp.buf.code_action, '[Q]uick [F]ix')
+
+        -- Format document
+        map('<leader>f', function()
+          vim.lsp.buf.format { async = true }
+        end, '[F]ormat')
+
+        -- Show function/variable info (like VS Code)
+        map('K', vim.lsp.buf.hover, 'Show Hover Information')
+
+        -- Show function signature help
+        map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help')
+
+        -- Hover-info in insert mode too
+        vim.keymap.set('i', '<C-k>', vim.lsp.buf.hover, { buffer = event.buf, desc = 'LSP: Hover Info' })
 
         -- Jump to the definition of the word under your cursor.
         --  This is where a variable was first declared, or where a function is defined, etc.
@@ -227,11 +259,11 @@ return {
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      'stylua',             -- Used to format Lua code
-      'codelldb',           -- Debug adapter for Rust, C/C++, Swift
-      'delve',              -- Go debugger
-      'debugpy',            -- Python debug adapter
-      'js-debug-adapter',   -- JavaScript/TypeScript debug adapter
+      'stylua', -- Used to format Lua code
+      'codelldb', -- Debug adapter for Rust, C/C++, Swift
+      'delve', -- Go debugger
+      'debugpy', -- Python debug adapter
+      'js-debug-adapter', -- JavaScript/TypeScript debug adapter
       'bash-debug-adapter', -- Bash debug adapter
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
