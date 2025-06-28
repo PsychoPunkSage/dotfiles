@@ -72,6 +72,14 @@ return {
           vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
+        -- Quick fix for current line
+        map('<leader>qf', vim.lsp.buf.code_action, '[Q]uick [F]ix')
+
+        -- Format document
+        map('<leader>f', function()
+          vim.lsp.buf.format { async = true }
+        end, '[F]ormat')
+
         -- Show function/variable info (like VS Code)
         map('K', vim.lsp.buf.hover, 'Show Hover Information')
 
