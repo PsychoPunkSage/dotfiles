@@ -30,8 +30,8 @@ return {
   config = function()
     -- Tokyo Night configuration
     require('tokyonight').setup {
-      style = 'night', -- The theme comes in four styles, `storm`, `moon`, a darker variant `night` and `day`
-      transparent = false, -- Enable this to disable setting the background color
+      style = 'night',        -- The theme comes in four styles, `storm`, `moon`, a darker variant `night` and `day`
+      transparent = true,     -- Enable this to disable setting the background color
       terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
       styles = {
         comments = { italic = false },
@@ -39,7 +39,7 @@ return {
         functions = {},
         variables = {},
         sidebars = 'dark', -- style for sidebars, see below
-        floats = 'dark', -- style for floating windows
+        floats = 'dark',   -- style for floating windows
       },
     }
 
@@ -47,7 +47,7 @@ return {
     vim.cmd [[colorscheme tokyonight]]
 
     -- Toggle background transparency
-    local bg_transparent = false
+    local bg_transparent = true
 
     local toggle_transparency = function()
       bg_transparent = not bg_transparent
