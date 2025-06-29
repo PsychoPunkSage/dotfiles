@@ -185,7 +185,67 @@ return {
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
       -- clangd = {},
-      gopls = {},
+      gopls = {
+        settings = {
+          gopls = {
+            -- Analysis settings
+            analyses = {
+              unusedparams = true,
+              unreachable = true,
+              fillstruct = true,
+              nonewvars = true,
+              undeclaredname = true,
+              unusedwrite = true,
+              useany = true,
+            },
+
+            -- Code lens
+            codelenses = {
+              gc_details = false,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+
+            -- Completion settings
+            completeUnimported = true,
+            usePlaceholders = true,
+            deepCompletion = true,
+
+            -- Inlay hints
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+
+            -- Import organization
+            gofumpt = true,
+
+            -- Static check
+            staticcheck = true,
+          },
+        },
+
+        -- File watchers
+        flags = {
+          debounce_text_changes = 150,
+        },
+
+        -- Initialize options
+        init_options = {
+          usePlaceholders = true,
+          completeUnimported = true,
+        },
+      },
       -- pyright = {},
       rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -265,6 +325,10 @@ return {
       'debugpy', -- Python debug adapter
       'js-debug-adapter', -- JavaScript/TypeScript debug adapter
       'bash-debug-adapter', -- Bash debug adapter
+      'gofumpt', -- Go formatter
+      'goimports', -- Go import organizer
+      'golangci-lint', -- Go linter
+      'golines', -- Go line length formatter
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
