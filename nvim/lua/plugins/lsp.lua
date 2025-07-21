@@ -9,7 +9,7 @@ return {
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim',       opts = {} },
+    { 'j-hui/fidget.nvim', opts = {} },
 
     -- Allows extra capabilities provided by nvim-cmp
     'hrsh7th/cmp-nvim-lsp',
@@ -247,7 +247,7 @@ return {
         },
       },
       -- pyright = {},
-      rust_analyzer = {},
+      -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
       -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -319,16 +319,16 @@ return {
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      'stylua',             -- Used to format Lua code
-      'codelldb',           -- Debug adapter for Rust, C/C++, Swift
-      'delve',              -- Go debugger
-      'debugpy',            -- Python debug adapter
-      'js-debug-adapter',   -- JavaScript/TypeScript debug adapter
+      'stylua', -- Used to format Lua code
+      'codelldb', -- Debug adapter for Rust, C/C++, Swift
+      'delve', -- Go debugger
+      'debugpy', -- Python debug adapter
+      'js-debug-adapter', -- JavaScript/TypeScript debug adapter
       'bash-debug-adapter', -- Bash debug adapter
-      'gofumpt',            -- Go formatter
-      'goimports',          -- Go import organizer
-      'golangci-lint',      -- Go linter
-      'golines',            -- Go line length formatter
+      'gofumpt', -- Go formatter
+      'goimports', -- Go import organizer
+      'golangci-lint', -- Go linter
+      'golines', -- Go line length formatter
       'rust-analyzer',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
