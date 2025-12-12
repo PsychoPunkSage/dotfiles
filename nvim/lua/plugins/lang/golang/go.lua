@@ -53,7 +53,7 @@ return {
 
       -- Formatter settings
       goimports = 'gopls', -- Use gopls for imports
-      gofmt = 'gofumpt', -- Use gofumpt for better formatting
+      gofmt = 'gofumpt',   -- Use gofumpt for better formatting
       fillstruct = 'gopls',
 
       -- Test settings
@@ -64,7 +64,7 @@ return {
       dap_debug = true,
       dap_debug_keymap = false, -- We handle DAP keymaps elsewhere
       dap_debug_gui = true,
-      dap_debug_vt = true, -- Virtual text for debugging
+      dap_debug_vt = true,      -- Virtual text for debugging
 
       -- Build tags
       build_tags = '',
@@ -106,7 +106,8 @@ return {
         -- Go specific commands
         vim.keymap.set('n', '<leader>gr', '<cmd>GoRun<cr>', vim.tbl_extend('force', opts, { desc = 'Go Run' }))
         vim.keymap.set('n', '<leader>gt', '<cmd>GoTest<cr>', vim.tbl_extend('force', opts, { desc = 'Go Test' }))
-        vim.keymap.set('n', '<leader>gT', '<cmd>GoTestFunc<cr>', vim.tbl_extend('force', opts, { desc = 'Go Test Function' }))
+        vim.keymap.set('n', '<leader>gT', '<cmd>GoTestFunc<cr>',
+          vim.tbl_extend('force', opts, { desc = 'Go Test Function' }))
         vim.keymap.set('n', '<leader>gc', '<cmd>GoCoverage<cr>', vim.tbl_extend('force', opts, { desc = 'Go Coverage' }))
         vim.keymap.set('n', '<leader>gb', '<cmd>GoBuild<cr>', vim.tbl_extend('force', opts, { desc = 'Go Build' }))
 
@@ -121,13 +122,15 @@ return {
 
         -- Go tags
         vim.keymap.set('n', '<leader>ga', '<cmd>GoAddTag<cr>', vim.tbl_extend('force', opts, { desc = 'Go Add Tags' }))
-        vim.keymap.set('n', '<leader>gd', '<cmd>GoRmTag<cr>', vim.tbl_extend('force', opts, { desc = 'Go Remove Tags' }))
+        vim.keymap.set('n', '<leader>gr', '<cmd>GoRmTag<cr>', vim.tbl_extend('force', opts, { desc = 'Go Remove Tags' }))
 
         -- Go fill struct
-        vim.keymap.set('n', '<leader>gs', '<cmd>GoFillStruct<cr>', vim.tbl_extend('force', opts, { desc = 'Go Fill Struct' }))
+        vim.keymap.set('n', '<leader>gs', '<cmd>GoFillStruct<cr>',
+          vim.tbl_extend('force', opts, { desc = 'Go Fill Struct' }))
 
         -- Interface implementation
-        vim.keymap.set('n', '<leader>gI', '<cmd>GoImpl<cr>', vim.tbl_extend('force', opts, { desc = 'Go Implement Interface' }))
+        vim.keymap.set('n', '<leader>gI', '<cmd>GoImpl<cr>',
+          vim.tbl_extend('force', opts, { desc = 'Go Implement Interface' }))
 
         -- Error handling
         vim.keymap.set('n', '<leader>ge', '<cmd>GoIfErr<cr>', vim.tbl_extend('force', opts, { desc = 'Go If Err' }))

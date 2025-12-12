@@ -40,6 +40,7 @@ return {
       server = {
         default_settings = {
           ['rust-analyzer'] = {
+            serverPath = vim.fn.system('rustup which rust-analyzer'):gsub('\n', ''),
             cargo = {
               allFeatures = true,
               loadOutDirsFromCheck = true,
@@ -101,7 +102,8 @@ return {
       dap = {
         adapter = require('rustaceanvim.config').get_codelldb_adapter(
           vim.fn.stdpath 'data' .. '/mason/packages/codelldb/extension/adapter/codelldb',
-          vim.fn.stdpath 'data' .. '/mason/packages/codelldb/extension/lldb/lib/liblldb' .. (vim.fn.has 'mac' == 1 and '.dylib' or '.so')
+          vim.fn.stdpath 'data' ..
+          '/mason/packages/codelldb/extension/lldb/lib/liblldb' .. (vim.fn.has 'mac' == 1 and '.dylib' or '.so')
         ),
       },
     }
