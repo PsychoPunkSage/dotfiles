@@ -36,6 +36,7 @@ require('lazy').setup {
   require 'plugins.indent-blankline',
   require 'plugins.misc',
   require 'plugins.fold',
+  require 'plugins.avante',
   require 'plugins.dap.dap',
   require 'plugins.dap.dap_ui',
   require 'plugins.lang.rust.rust',
