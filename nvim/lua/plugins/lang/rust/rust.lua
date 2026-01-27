@@ -40,7 +40,17 @@ return {
       server = {
         default_settings = {
           ['rust-analyzer'] = {
-            serverPath = vim.fn.system('rustup which rust-analyzer'):gsub('\n', ''),
+            serverPath = (function()
+              local wrapper = vim.fn.expand('~/.local/bin/rust-analyzer-limited')
+              if vim.fn.executable(wrapper) == 1 then
+                return wrapper
+              end
+              local cargo_ra = vim.fn.expand('~/.cargo/bin/rust-analyzer')
+              if vim.fn.executable(cargo_ra) == 1 then
+                return cargo_ra
+              end
+              return 'rust-analyzer'
+            end)(),
             cargo = {
               allFeatures = true,
               loadOutDirsFromCheck = true,
