@@ -83,3 +83,12 @@ vim.keymap.set('n', 'zo', 'zo', { desc = 'Open fold under cursor' })
 vim.keymap.set('n', '<leader>aa', '<cmd>AvanteAsk<cr>', { desc = 'Avante Ask' })
 vim.keymap.set('v', '<leader>ae', '<cmd>AvanteEdit<cr>', { desc = 'Avante Edit' })
 vim.keymap.set('n', '<leader>at', '<cmd>AvanteToggle<cr>', { desc = 'Avante Toggle' })
+
+-- Line duplication (VS Code-style with Alt+Shift)
+-- Duplicate line/selection down
+vim.keymap.set('n', '<M-S-j>', ':t.<CR>', { noremap = true, silent = true, desc = 'Duplicate line down' })
+vim.keymap.set('v', '<M-S-j>', ":t'><CR>gv", { noremap = true, silent = true, desc = 'Duplicate selection down' })
+
+-- Duplicate line/selection up
+vim.keymap.set('n', '<M-S-k>', ':t.-1<CR>', { noremap = true, silent = true, desc = 'Duplicate line up' })
+vim.keymap.set('v', '<M-S-k>', ":t'<-1<CR>gv", { noremap = true, silent = true, desc = 'Duplicate selection up' })
