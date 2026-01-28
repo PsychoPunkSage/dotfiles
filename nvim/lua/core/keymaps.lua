@@ -92,3 +92,12 @@ vim.keymap.set('v', '<M-S-j>', ":t'><CR>gv", { noremap = true, silent = true, de
 -- Duplicate line/selection up
 vim.keymap.set('n', '<M-S-k>', ':t.-1<CR>', { noremap = true, silent = true, desc = 'Duplicate line up' })
 vim.keymap.set('v', '<M-S-k>', ":t'<-1<CR>gv", { noremap = true, silent = true, desc = 'Duplicate selection up' })
+
+-- Line moving (VS Code-style with Alt+j/k)
+-- Move line/selection down
+vim.keymap.set('n', '<M-j>', ':m .+1<CR>==', { noremap = true, silent = true, desc = 'Move line down' })
+vim.keymap.set('v', '<M-j>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = 'Move selection down' })
+
+-- Move line/selection up
+vim.keymap.set('n', '<M-k>', ':m .-2<CR>==', { noremap = true, silent = true, desc = 'Move line up' })
+vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = 'Move selection up' })
