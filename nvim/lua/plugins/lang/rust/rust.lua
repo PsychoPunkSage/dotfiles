@@ -37,7 +37,19 @@ return {
     vim.g.rustaceanvim = {
       -- rustaceanvim will automatically find Mason-installed codelldb
       -- No manual path configuration needed
+      tools = {
+        hover_actions = {
+          replace_builtin_hover = false, -- Don't auto-set K mapping, we handle it in on_attach
+        },
+      },
       server = {
+        on_attach = function(client, bufnr)
+          -- Set up K for Rust hover with actions (buffer-local)
+          -- This replaces the generic LSP hover with Rust-enhanced hover
+          vim.keymap.set('n', 'K', function()
+            vim.cmd.RustLsp { 'hover', 'actions' }
+          end, { buffer = bufnr, desc = 'Rust: Hover Actions' })
+        end,
         default_settings = {
           ['rust-analyzer'] = {
             serverPath = (function()
@@ -135,8 +147,5 @@ return {
     map('n', '<Leader>re', '<Cmd>RustLsp expandMacro<CR>', { desc = 'Rust: Expand Macro' })
     map('n', '<Leader>rc', '<Cmd>RustLsp openCargo<CR>', { desc = 'Rust: Open Cargo.toml' })
     map('n', '<Leader>rp', '<Cmd>RustLsp parentModule<CR>', { desc = 'Rust: Parent Module' })
-    map('n', '<Leader>rh', function()
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-    end, { desc = 'Rust: Toggle Inlay Hints' })
   end,
 }

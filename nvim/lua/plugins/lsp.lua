@@ -80,14 +80,17 @@ return {
           vim.lsp.buf.format { async = true }
         end, '[F]ormat')
 
-        -- Show function/variable info (like VS Code)
-        map('K', vim.lsp.buf.hover, 'Show Hover Information')
+        -- Show function/variable info (skip for Rust - rustaceanvim handles it)
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if not (client and client.name == 'rust_analyzer') then
+          map('K', vim.lsp.buf.hover, 'Show Hover Information')
+        end
 
         -- Show function signature help
-        map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help')
+        map('<M-h>', vim.lsp.buf.signature_help, 'Signature Help (Alt+h)')
 
-        -- Hover-info in insert mode too
-        vim.keymap.set('i', '<C-k>', vim.lsp.buf.hover, { buffer = event.buf, desc = 'LSP: Hover Info' })
+        -- Signature help in insert mode too (for parameter hints while typing)
+        vim.keymap.set('i', '<M-h>', vim.lsp.buf.signature_help, { buffer = event.buf, desc = 'LSP: Signature Help' })
 
         -- Jump to the definition of the word under your cursor.
         --  This is where a variable was first declared, or where a function is defined, etc.
@@ -131,7 +134,6 @@ return {
         --    See `:help CursorHold` for information about when this is executed
         --
         -- When you move your cursor, the highlights will be cleared (the second autocommand).
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
           local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -159,10 +161,13 @@ return {
         -- code, if the language server you are using supports them
         --
         -- This may be unwanted, since they displace some of your code
+        -- Skip for rust_analyzer - rustaceanvim handles inlay hints for Rust
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-          map('<leader>th', function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-          end, '[T]oggle Inlay [H]ints')
+          if client.name ~= 'rust_analyzer' then
+            map('<leader>th', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+            end, '[T]oggle Inlay [H]ints')
+          end
         end
       end,
     })
