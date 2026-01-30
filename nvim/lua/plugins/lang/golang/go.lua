@@ -103,13 +103,16 @@ return {
       callback = function()
         local opts = { buffer = true, silent = true }
 
-        -- Go specific commands
-        vim.keymap.set('n', '<leader>gr', '<cmd>GoRun<cr>', vim.tbl_extend('force', opts, { desc = 'Go Run' }))
-        vim.keymap.set('n', '<leader>gt', '<cmd>GoTest<cr>', vim.tbl_extend('force', opts, { desc = 'Go Test' }))
-        vim.keymap.set('n', '<leader>gT', '<cmd>GoTestFunc<cr>',
-          vim.tbl_extend('force', opts, { desc = 'Go Test Function' }))
+        -- Unified language keybindings (same keys work in Go, Rust, etc.)
+        vim.keymap.set('n', '<leader>lr', '<cmd>GoRun<cr>', vim.tbl_extend('force', opts, { desc = 'Run (Go)' }))
+        vim.keymap.set('n', '<leader>lt', '<cmd>GoTest<cr>', vim.tbl_extend('force', opts, { desc = 'Test (Go)' }))
+        vim.keymap.set('n', '<leader>lT', '<cmd>GoTestFunc<cr>',
+          vim.tbl_extend('force', opts, { desc = 'Test Function (Go)' }))
+        vim.keymap.set('n', '<leader>ld', '<cmd>GoDebug<cr>', vim.tbl_extend('force', opts, { desc = 'Debug (Go)' }))
+        vim.keymap.set('n', '<leader>lb', '<cmd>GoBuild<cr>', vim.tbl_extend('force', opts, { desc = 'Build (Go)' }))
+
+        -- Go-specific commands
         vim.keymap.set('n', '<leader>gc', '<cmd>GoCoverage<cr>', vim.tbl_extend('force', opts, { desc = 'Go Coverage' }))
-        vim.keymap.set('n', '<leader>gb', '<cmd>GoBuild<cr>', vim.tbl_extend('force', opts, { desc = 'Go Build' }))
 
         -- Go tools
         vim.keymap.set('n', '<leader>gi', '<cmd>GoImports<cr>', vim.tbl_extend('force', opts, { desc = 'Go Imports' }))
@@ -122,7 +125,7 @@ return {
 
         -- Go tags
         vim.keymap.set('n', '<leader>ga', '<cmd>GoAddTag<cr>', vim.tbl_extend('force', opts, { desc = 'Go Add Tags' }))
-        vim.keymap.set('n', '<leader>gr', '<cmd>GoRmTag<cr>', vim.tbl_extend('force', opts, { desc = 'Go Remove Tags' }))
+        vim.keymap.set('n', '<leader>gR', '<cmd>GoRmTag<cr>', vim.tbl_extend('force', opts, { desc = 'Go Remove Tags' }))
 
         -- Go fill struct
         vim.keymap.set('n', '<leader>gs', '<cmd>GoFillStruct<cr>',

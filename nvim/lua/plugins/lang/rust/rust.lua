@@ -141,9 +141,11 @@ return {
       vim.cmd 'RustLsp debuggables'
     end, { desc = 'Debug: Rust Debuggables' })
 
-    map('n', '<Leader>rr', '<Cmd>RustLsp runnables<CR>', { desc = 'Rust: Runnables' })
-    map('n', '<Leader>rd', '<Cmd>RustLsp debuggables<CR>', { desc = 'Rust: Debuggables' })
-    map('n', '<Leader>rt', '<Cmd>RustLsp testables<CR>', { desc = 'Rust: Testables' })
+    -- Unified language keybindings (same keys work in Go, Rust, etc.)
+    map('n', '<Leader>lr', '<Cmd>RustLsp runnables<CR>', { desc = 'Run (Rust)' })
+    map('n', '<Leader>ld', '<Cmd>RustLsp debuggables<CR>', { desc = 'Debug (Rust)' })
+    map('n', '<Leader>lt', '<Cmd>RustLsp testables<CR>', { desc = 'Test (Rust)' })
+    map('n', '<Leader>lT', '<Cmd>RustLsp testables<CR>', { desc = 'Test Function (Rust)' })
     map('n', '<Leader>re', '<Cmd>RustLsp expandMacro<CR>', { desc = 'Rust: Expand Macro' })
     map('n', '<Leader>rc', '<Cmd>RustLsp openCargo<CR>', { desc = 'Rust: Open Cargo.toml' })
     map('n', '<Leader>rp', '<Cmd>RustLsp parentModule<CR>', { desc = 'Rust: Parent Module' })
