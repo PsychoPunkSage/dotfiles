@@ -41,9 +41,8 @@
 	"custom/separator#line",
 	"hyprland/workspaces#kanji",
 	"custom/separator#dot-line",
-	"idle_inhibitor",	
-	"custom/hint",	
-	], 
+	"idle_inhibitor",
+	],
 
 "modules-right": [
 	"network#speed",

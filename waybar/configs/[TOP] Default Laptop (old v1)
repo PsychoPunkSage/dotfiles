@@ -47,8 +47,7 @@
 	"custom/lock",
 	//],
 	"custom/separator#dot-line",
-	"custom/hint",	
-	], 
+	],
 
 "modules-right": [
 	"network#speed",
