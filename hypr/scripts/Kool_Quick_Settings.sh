@@ -32,7 +32,6 @@ view/edit Decorations
 view/edit Animations
 view/edit Laptop Keybinds
 view/edit Default Keybinds
-Choose Kitty Terminal Theme
 Configure Monitors (nwg-displays)
 Configure Workspace Rules (nwg-displays)
 GTK Settings (nwg-look)
@@ -63,8 +62,7 @@ main() {
         "view/edit Animations") file="$UserConfigs/UserAnimations.conf" ;;
         "view/edit Laptop Keybinds") file="$UserConfigs/Laptops.conf" ;;
         "view/edit Default Keybinds") file="$configs/Keybinds.conf" ;;
-        "Choose Kitty Terminal Theme") $scriptsDir/Kitty_themes.sh ;;
-        "Configure Monitors (nwg-displays)") 
+        "Configure Monitors (nwg-displays)")
             if ! command -v nwg-displays &>/dev/null; then
                 notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Install nwg-displays first"
                 exit 1
