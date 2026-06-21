@@ -40,11 +40,11 @@ else
   case "$response" in
     "action1")  
       if [ -d $KooL_Dots_DIR ]; then
-      	if ! command -v kitty &> /dev/null; then
-  			notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Kitty terminal not found. Please install Kitty terminal."
+      	if ! command -v ghostty &> /dev/null; then
+  			notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Ghostty terminal not found. Please install Ghostty terminal."
   			exit 1
 		fi
-        kitty -e bash -c "
+        ghostty -e bash -c "
           cd $KooL_Dots_DIR &&
           git stash &&
           git pull &&
@@ -53,11 +53,11 @@ else
         "
 	
       else
-         if ! command -v kitty &> /dev/null; then
-  		  	notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Kitty terminal not found. Please install Kitty terminal."
+         if ! command -v ghostty &> /dev/null; then
+  		  	notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Ghostty terminal not found. Please install Ghostty terminal."
   			exit 1
 		fi
-        kitty -e bash -c "
+        ghostty -e bash -c "
           git clone --depth=1 https://github.com/JaKooLit/Hyprland-Dots.git $KooL_Dots_DIR &&
           cd $KooL_Dots_DIR &&
           chmod +x copy.sh &&
