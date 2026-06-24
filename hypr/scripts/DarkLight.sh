@@ -14,8 +14,6 @@ SCRIPTSDIR="$HOME/.config/hypr/scripts"
 notif="$HOME/.config/swaync/images/bell.png"
 wallust_rofi="$HOME/.config/wallust/templates/colors-rofi.rasi"
 
-kitty_conf="$HOME/.config/kitty/kitty.conf"
-
 wallust_config="$HOME/.config/wallust/wallust.toml"
 pallete_dark="dark16"
 pallete_light="light16"
@@ -103,21 +101,6 @@ if command -v ags >/dev/null 2>&1; then
 	    sed -i '/@define-color noti-bg-alt/s/#.*;/#F0F0F0;/' "${ags_style}"
     fi
 fi
-
-# kitty background color change
-if [ "$next_mode" = "Dark" ]; then
-    sed -i '/^foreground /s/^foreground .*/foreground #dddddd/' "${kitty_conf}"
-	sed -i '/^background /s/^background .*/background #000000/' "${kitty_conf}"
-	sed -i '/^cursor /s/^cursor .*/cursor #dddddd/' "${kitty_conf}"
-else
-	sed -i '/^foreground /s/^foreground .*/foreground #000000/' "${kitty_conf}"
-	sed -i '/^background /s/^background .*/background #dddddd/' "${kitty_conf}"
-	sed -i '/^cursor /s/^cursor .*/cursor #000000/' "${kitty_conf}"
-fi
-
-for pid_kitty in $(pidof kitty); do
-    kill -SIGUSR1 "$pid_kitty"
-done
 
 # Set Dynamic Wallpaper for Dark or Light Mode
 if [ "$next_mode" = "Dark" ]; then
