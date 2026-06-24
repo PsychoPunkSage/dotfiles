@@ -399,9 +399,7 @@
 	"on-click-middle": "close",
 	"ignore-list": [
 		"wofi",
-		"rofi",
-		"kitty",
-    "kitty-dropterm"
+		"rofi"
 		],
 },
 }
