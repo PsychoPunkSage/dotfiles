@@ -3,7 +3,7 @@
 # Wallpaper Effects using ImageMagick (SUPER SHIFT W)
 
 # Variables
-terminal=kitty
+terminal=ghostty
 wallpaper_current="$HOME/.config/hypr/wallpaper_effects/.wallpaper_current"
 wallpaper_output="$HOME/.config/hypr/wallpaper_effects/.wallpaper_modified"
 SCRIPTSDIR="$HOME/.config/hypr/scripts"
