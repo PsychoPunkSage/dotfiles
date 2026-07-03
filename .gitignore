@@ -1,4 +1,22 @@
-# Claude Code context files - keep local only
-.claude/
-CLAUDE.md
+# This repo doubles as ~/.config, which fills up with unrelated app state
+# (browser profiles, editor caches, container runtime data, etc.) that we
+# never want tracked. Ignore everything by default, then explicitly allow
+# the directories/files this dotfiles repo actually manages.
+/*
+
+# Managed tool directories
+!/ghostty
+!/hypr
+!/nvim
+!/scripts
+!/shellrc
+!/starship
+!/tmux
+!/waybar
+
+# Root files
+!/README.md
+!/Makefile
+!/.gitignore
+
 tmux/plugins/
