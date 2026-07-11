@@ -129,25 +129,25 @@ return {
         ),
       },
     }
-    -- Rust-specific debug keymaps using rustaceanvim
-    local map = vim.keymap.set
-    map('n', '<Leader>dt', function()
-      vim.cmd 'RustLsp testables'
-    end, { desc = 'Debug: Rust Testables' })
-    map('n', '<Leader>dR', function()
-      vim.cmd 'RustLsp runnables'
-    end, { desc = 'Debug: Rust Runnables' })
-    map('n', '<Leader>drd', function()
-      vim.cmd 'RustLsp debuggables'
-    end, { desc = 'Debug: Rust Debuggables' })
+    -- Rust-specific keymaps, buffer-local (mirrors Go's FileType autocmd pattern)
+    local rust_augroup = vim.api.nvim_create_augroup('RustConfig', { clear = true })
+    vim.api.nvim_create_autocmd('FileType', {
+      group = rust_augroup,
+      pattern = 'rust',
+      callback = function(event)
+        local opts = { buffer = event.buf, silent = true }
 
-    -- Unified language keybindings (same keys work in Go, Rust, etc.)
-    map('n', '<Leader>lr', '<Cmd>RustLsp runnables<CR>', { desc = 'Run (Rust)' })
-    map('n', '<Leader>ld', '<Cmd>RustLsp debuggables<CR>', { desc = 'Debug (Rust)' })
-    map('n', '<Leader>lt', '<Cmd>RustLsp testables<CR>', { desc = 'Test (Rust)' })
-    map('n', '<Leader>lT', '<Cmd>RustLsp testables<CR>', { desc = 'Test Function (Rust)' })
-    map('n', '<Leader>re', '<Cmd>RustLsp expandMacro<CR>', { desc = 'Rust: Expand Macro' })
-    map('n', '<Leader>rc', '<Cmd>RustLsp openCargo<CR>', { desc = 'Rust: Open Cargo.toml' })
-    map('n', '<Leader>rp', '<Cmd>RustLsp parentModule<CR>', { desc = 'Rust: Parent Module' })
+        -- Unified language keybindings (same keys work in Go, Rust, etc.)
+        vim.keymap.set('n', '<leader>lr', '<Cmd>RustLsp runnables<CR>', vim.tbl_extend('force', opts, { desc = 'Run (Rust)' }))
+        vim.keymap.set('n', '<leader>ld', '<Cmd>RustLsp debuggables<CR>', vim.tbl_extend('force', opts, { desc = 'Debug (Rust)' }))
+        vim.keymap.set('n', '<leader>lt', '<Cmd>RustLsp testables<CR>', vim.tbl_extend('force', opts, { desc = 'Test (Rust)' }))
+        vim.keymap.set('n', '<leader>lT', '<Cmd>RustLsp testables<CR>', vim.tbl_extend('force', opts, { desc = 'Test Function (Rust)' }))
+
+        -- Rust-specific commands
+        vim.keymap.set('n', '<leader>re', '<Cmd>RustLsp expandMacro<CR>', vim.tbl_extend('force', opts, { desc = 'Rust: Expand Macro' }))
+        vim.keymap.set('n', '<leader>rc', '<Cmd>RustLsp openCargo<CR>', vim.tbl_extend('force', opts, { desc = 'Rust: Open Cargo.toml' }))
+        vim.keymap.set('n', '<leader>rp', '<Cmd>RustLsp parentModule<CR>', vim.tbl_extend('force', opts, { desc = 'Rust: Parent Module' }))
+      end,
+    })
   end,
 }
