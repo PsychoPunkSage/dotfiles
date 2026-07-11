@@ -32,9 +32,11 @@ return { -- Highlight, edit, and navigate code
       'tsx',
       'css',
       'html',
+      'bibtex',
     },
     -- Autoinstall languages that are not installed
     auto_install = true,
+    ignore_install = { 'latex' }, -- requires tree-sitter CLI to compile from source
     highlight = {
       enable = true,
       -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
