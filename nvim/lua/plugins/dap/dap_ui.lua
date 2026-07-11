@@ -26,7 +26,7 @@ return {
     map('n', '<Leader>du', function()
       require('dapui').toggle()
     end, { desc = 'Debug: Toggle UI' })
-    map('n', '<Leader>dE', function()
+    map('n', '<Leader>dv', function()
       require('dapui').eval()
     end, { desc = 'Debug: Eval Expression' })
   end,
