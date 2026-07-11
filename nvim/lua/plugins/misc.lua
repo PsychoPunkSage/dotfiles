@@ -19,6 +19,22 @@ return {
   {
     -- Hints keybinds
     'folke/which-key.nvim',
+    event = 'VeryLazy',
+    opts = {
+      spec = {
+        { '<leader>l', group = 'Language actions (run/test/debug/build)' },
+        { '<leader>d', group = 'Debug (DAP)' },
+        { '<leader>q', group = 'Diagnostics' },
+        { '<leader>g', group = 'Go extras' },
+        { '<leader>c', group = 'Crates (Rust)' },
+        { '<leader>r', group = 'Rust extras' },
+        { '<leader>x', group = 'LaTeX extras' },
+        { '<leader>u', group = 'UI toggles' },
+        { '<leader>s', group = 'Search (Telescope)' },
+        { '<leader>t', group = 'Tabs' },
+        { '<leader>b', group = 'Buffers' },
+      },
+    },
   },
   {
     -- Autoclose parentheses, brackets, quotes, etc.
