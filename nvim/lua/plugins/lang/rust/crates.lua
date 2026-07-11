@@ -19,18 +19,29 @@ return {
       sources = { { name = 'crates' } },
     }
 
-    -- Crates keymaps
-    local map = vim.keymap.set
-    map('n', '<leader>ct', require('crates').toggle, { desc = 'Crates: Toggle' })
-    map('n', '<leader>cr', require('crates').reload, { desc = 'Crates: Reload' })
-    map('n', '<leader>cv', require('crates').show_versions_popup, { desc = 'Crates: Show Versions' })
-    map('n', '<leader>cf', require('crates').show_features_popup, { desc = 'Crates: Show Features' })
-    map('n', '<leader>cd', require('crates').show_dependencies_popup, { desc = 'Crates: Show Dependencies' })
-    map('n', '<leader>cu', require('crates').update_crate, { desc = 'Crates: Update Crate' })
-    map('v', '<leader>cu', require('crates').update_crates, { desc = 'Crates: Update Crates' })
-    map('n', '<leader>ca', require('crates').update_all_crates, { desc = 'Crates: Update All' })
-    map('n', '<leader>cU', require('crates').upgrade_crate, { desc = 'Crates: Upgrade Crate' })
-    map('v', '<leader>cU', require('crates').upgrade_crates, { desc = 'Crates: Upgrade Crates' })
-    map('n', '<leader>cA', require('crates').upgrade_all_crates, { desc = 'Crates: Upgrade All' })
+    -- Crates keymaps, buffer-local to Cargo.toml files
+    local crates_augroup = vim.api.nvim_create_augroup('CratesConfig', { clear = true })
+    vim.api.nvim_create_autocmd('FileType', {
+      group = crates_augroup,
+      pattern = 'toml',
+      callback = function(event)
+        local map = function(mode, keys, func, desc)
+          vim.keymap.set(mode, keys, func, { buffer = event.buf, silent = true, desc = desc })
+        end
+        local crates = require 'crates'
+
+        map('n', '<leader>ct', crates.toggle, 'Crates: Toggle')
+        map('n', '<leader>cr', crates.reload, 'Crates: Reload')
+        map('n', '<leader>cv', crates.show_versions_popup, 'Crates: Show Versions')
+        map('n', '<leader>cf', crates.show_features_popup, 'Crates: Show Features')
+        map('n', '<leader>cd', crates.show_dependencies_popup, 'Crates: Show Dependencies')
+        map('n', '<leader>cu', crates.update_crate, 'Crates: Update Crate')
+        map('v', '<leader>cu', crates.update_crates, 'Crates: Update Crates')
+        map('n', '<leader>ca', crates.update_all_crates, 'Crates: Update All')
+        map('n', '<leader>cU', crates.upgrade_crate, 'Crates: Upgrade Crate')
+        map('v', '<leader>cU', crates.upgrade_crates, 'Crates: Upgrade Crates')
+        map('n', '<leader>cA', crates.upgrade_all_crates, 'Crates: Upgrade All')
+      end,
+    })
   end,
 }
