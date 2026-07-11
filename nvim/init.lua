@@ -43,4 +43,5 @@ require('lazy').setup {
   require 'plugins.lang.rust.crates',
   require 'plugins.lang.rust.rustfmt',
   require 'plugins.lang.golang.go',
+  require 'plugins.lang.latex.latex',
 }
