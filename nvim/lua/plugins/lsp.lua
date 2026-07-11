@@ -72,9 +72,6 @@ return {
           vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
-        -- Quick fix for current line
-        map('<leader>qf', vim.lsp.buf.code_action, '[Q]uick [F]ix')
-
         -- Format document
         map('<leader>f', function()
           vim.lsp.buf.format { async = true }
@@ -109,13 +106,9 @@ return {
         --  the definition of its *type*, not where it was *defined*.
         map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
-        -- Fuzzy find all the symbols in your current document.
-        --  Symbols are things like variables, functions, types, etc.
-        map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-
-        -- Fuzzy find all the symbols in your current workspace.
-        --  Similar to document symbols, except searches over your entire project.
-        map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        -- Fuzzy find all the symbols in your current document / workspace.
+        --  Moved into the Telescope <leader>s* search namespace (see telescope.lua)
+        --  to avoid colliding with <leader>sd (search diagnostics).
 
         -- Rename the variable under your cursor.
         --  Most Language Servers support renaming across files, etc.
@@ -164,9 +157,9 @@ return {
         -- Skip for rust_analyzer - rustaceanvim handles inlay hints for Rust
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
           if client.name ~= 'rust_analyzer' then
-            map('<leader>th', function()
+            map('<leader>uh', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            end, 'UI: Toggle Inlay Hints')
           end
         end
       end,
@@ -285,6 +278,23 @@ return {
       terraformls = {},
       jsonls = {},
       yamlls = {},
+      texlab = {
+        settings = {
+          texlab = {
+            build = {
+              executable = 'latexmk',
+              args = { '-pdf', '-interaction=nonstopmode', '-synctex=1', '%f' },
+              onSave = false,
+            },
+            forwardSearch = {
+              executable = 'zathura',
+              args = { '--synctex-forward', '%l:1:%f', '%p' },
+            },
+            chktex = { onOpenAndSave = true, onEdit = false },
+            diagnosticsDelay = 300,
+          },
+        },
+      },
 
       lua_ls = {
         -- cmd = {...},
