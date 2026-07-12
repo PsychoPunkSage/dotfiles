@@ -19,4 +19,15 @@
 !/Makefile
 !/.gitignore
 
+# Generated/runtime state, not config
 tmux/plugins/
+hypr/wallpaper_effects/.wallpaper_current
+hypr/wallpaper_effects/.wallpaper_modified
+
+# JaKooLit installer state markers
+hypr/.initial_startup_done
+hypr/v2.3.15
+
+# Backup files
+*.bak
+*.bak.*
