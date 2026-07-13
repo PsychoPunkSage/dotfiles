@@ -3,6 +3,8 @@ keybind = ctrl+shift+tab=unbind
 
 theme = Ultra Dark
 
+font-size = 9
+
 # background-opacity only fades the background layer, not glyphs -
 # text stays fully opaque at any value here.
 background-opacity = 0.70
