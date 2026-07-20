@@ -54,8 +54,3 @@ pattern in `Makefile` when ready.
   themselves on first launch from `nvim/lazy-lock.json`.
 - **Hyprland**: install Hyprland and the JaKooLit dependency stack (see
   `hypr/initial-boot.sh`); this repo does not automate that install.
-
-## Architecture
-
-See `CLAUDE.md` (local-only, not tracked in this repo) for a full breakdown
-of the Hyprland, Wallust theming, Waybar, and Rofi configuration structure.
