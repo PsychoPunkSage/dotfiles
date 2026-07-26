@@ -39,9 +39,8 @@ return {
       formatting.terraform_fmt,
 
       -- Python formatting and linting
-      require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } }, -- just linting
       require 'none-ls.formatting.ruff_format',
-      -- diagnostics.ruff,
+      require('none-ls.diagnostics.ruff').with { extra_args = { '--extend-select', 'I' } },
       -- formatting.black, -- just formatting
 
       -- Go formatting and linting
@@ -69,11 +68,15 @@ return {
             group = augroup,
             buffer = bufnr,
             callback = function()
-              -- vim.lsp.buf.format { async = false }
               if vim.bo[bufnr].filetype == 'go' then
                 return
               end
-              vim.lsp.buf.format { async = false }
+              vim.lsp.buf.format {
+                async = false,
+                filter = function(c)
+                  return c.name == 'null-ls'
+                end,
+              }
             end,
           })
         end

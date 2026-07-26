@@ -74,7 +74,12 @@ return {
 
         -- Format document
         map('<leader>f', function()
-          vim.lsp.buf.format { async = true }
+          vim.lsp.buf.format {
+            async = true,
+            filter = function(c)
+              return c.name ~= 'pylsp'
+            end,
+          }
         end, '[F]ormat')
 
         -- Show function/variable info (skip for Rust - rustaceanvim handles it)
