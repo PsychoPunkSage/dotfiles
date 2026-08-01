@@ -23,6 +23,7 @@ return {
         'golangci-lint', -- Go comprehensive linter
         'golines', -- Go line length formatter
         'rustfmt', -- Rust formatter
+        'clang-format', -- C/C++ formatter
         -- 'black', -- another python linter and formatter
       },
       automatic_installation = true,
@@ -42,6 +43,9 @@ return {
       require 'none-ls.formatting.ruff_format',
       require('none-ls.diagnostics.ruff').with { extra_args = { '--extend-select', 'I' } },
       -- formatting.black, -- just formatting
+
+      -- C/C++ formatting
+      formatting.clang_format,
 
       -- Go formatting and linting
       formatting.gofumpt,
