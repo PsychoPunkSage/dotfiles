@@ -187,7 +187,21 @@ return {
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
-      -- clangd = {},
+      clangd = {
+        cmd = {
+          'clangd',
+          '--background-index',
+          '--clang-tidy',
+          '--header-insertion=iwyu',
+          '--completion-style=detailed',
+          '--function-arg-placeholders',
+        },
+        init_options = {
+          usePlaceholders = true,
+          completeUnimported = true,
+          clangdFileStatus = true,
+        },
+      },
       gopls = {
         settings = {
           gopls = {
@@ -260,9 +274,31 @@ return {
       ts_ls = {}, -- tsserver is deprecated
       ruff = {},
       pylsp = {
+        before_init = function(_, config)
+          -- Mason installs pylsp into its own isolated venv, so jedi
+          -- can't see packages from the project's env unless we point
+          -- it there explicitly. Detect the active/local venv python.
+          local python_path = os.getenv 'VIRTUAL_ENV'
+          if python_path then
+            python_path = python_path .. '/bin/python'
+          else
+            local root = config.root_dir or vim.fn.getcwd()
+            for _, dir in ipairs { '.venv', 'venv', 'env' } do
+              local candidate = root .. '/' .. dir .. '/bin/python'
+              if vim.fn.executable(candidate) == 1 then
+                python_path = candidate
+                break
+              end
+            end
+          end
+          if python_path then
+            config.settings.pylsp.plugins.jedi.environment = python_path
+          end
+        end,
         settings = {
           pylsp = {
             plugins = {
+              jedi = {},
               pyflakes = { enabled = false },
               pycodestyle = { enabled = false },
               autopep8 = { enabled = false },
