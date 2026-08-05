@@ -40,20 +40,15 @@
     flex-direction: column;
 }
 
-/* --- Doorhanger/menu popup fix ---
-   Permission prompts, the screen-share picker, and other toolbar-anchored
-   panels are native popups that always open DOWNWARD from their anchor and
-   can't be repositioned via CSS (they're placed by Firefox's own C++ popup
-   code, not page layout). With the toolbar flush against the bottom of the
-   screen they have nowhere to go and render clipped/squished.
-   Fix: only while some panel is actually open (`panelopen` is the real
-   Firefox state attribute set on any visible <panel>), temporarily push the
-   toolbox up to open a gap below it for the popup to drop into. No
-   permanent dead space the rest of the time. */
-#navigator-toolbox {
-    transition: margin-bottom 120ms ease;
-}
-
-#mainPopupSet:has(panel[panelopen]) ~ #navigator-toolbox {
-    margin-bottom: 220px;
+/* --- Doorhanger popup fix ---
+   Permission prompts, the screen-share picker, add-on install prompts etc.
+   all reuse the SAME native panel (#notification-popup, see browser.xhtml).
+   It always opens DOWNWARD from its anchor (the urlbar icon), and with the
+   toolbar flush against the bottom of the screen it has nowhere to go and
+   renders clipped/squished.
+   Fix: shift that specific panel upward with a static margin so it renders
+   above the toolbar instead. No dynamic/animated space, no flicker — this
+   is a plain always-on override for this one panel only. */
+panel#notification-popup {
+    margin-top: -220px !important;
 }
