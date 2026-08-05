@@ -1,0 +1,14 @@
+/* Move the whole toolbox (tabs + urlbar) below the page content.
+   #navigator-toolbox and #browser are sibling flex items of the chrome
+   document's <body> (already display:flex by default) — swapping their
+   order pushes the toolbox to the bottom of the window.
+   Requires toolkit.legacyUserProfileCustomizations.stylesheets = true
+   (set automatically by `make firefox`, see repo Makefile). */
+
+#browser {
+    order: 1 !important;
+}
+
+#navigator-toolbox {
+    order: 2 !important;
+}

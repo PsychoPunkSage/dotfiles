@@ -5,6 +5,7 @@
 /*
 
 # Managed tool directories
+!/firefox
 !/ghostty
 !/hypr
 !/nvim
