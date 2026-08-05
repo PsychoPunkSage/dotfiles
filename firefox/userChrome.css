@@ -12,3 +12,48 @@
 #navigator-toolbox {
     order: 2 !important;
 }
+
+/* --- Popup fix ---
+   The urlbar/toolbox now sits at the very bottom of the window, so panels
+   that normally drop DOWN from it (search suggestions, permission
+   doorhangers, extension popups) have no room below and get squeezed
+   against the screen edge. Force them to open upward instead.
+   Based on the known-working approach from jonhoo/configs userChrome.css
+   for bottom-toolbar Firefox setups. */
+
+#urlbar[open] {
+    top: unset !important;
+    bottom: calc(var(--urlbar-container-height) + 2 * var(--urlbar-padding-block)) !important;
+}
+
+#urlbar > .urlbarView {
+    order: 1;
+    border-bottom: 1px solid #666;
+}
+
+#urlbar .urlbar-input-container {
+    order: 2;
+}
+
+#urlbar-results {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Doorhanger/menu popup fix ---
+   Permission prompts, the screen-share picker, and other toolbar-anchored
+   panels are native popups that always open DOWNWARD from their anchor and
+   can't be repositioned via CSS (they're placed by Firefox's own C++ popup
+   code, not page layout). With the toolbar flush against the bottom of the
+   screen they have nowhere to go and render clipped/squished.
+   Fix: only while some panel is actually open (`panelopen` is the real
+   Firefox state attribute set on any visible <panel>), temporarily push the
+   toolbox up to open a gap below it for the popup to drop into. No
+   permanent dead space the rest of the time. */
+#navigator-toolbox {
+    transition: margin-bottom 120ms ease;
+}
+
+#mainPopupSet:has(panel[panelopen]) ~ #navigator-toolbox {
+    margin-bottom: 220px;
+}
