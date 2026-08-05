@@ -15,10 +15,12 @@ untracked.
 | tmux | `tmux/` |
 | Neovim | `nvim/` |
 | Hyprland | `hypr/` |
+| Firefox (`userChrome.css`) | `firefox/` |
 
 ```
-make all        # link all managed tool configs into ~/.config
+make all        # link all managed tool configs into ~/.config, copy firefox userChrome.css
 make ghostty     # link a single tool: ghostty | tmux | nvim | hypr
+make firefox     # copy firefox/userChrome.css into the live Firefox profile
 make status      # show link status for managed tools
 ```
 
@@ -54,3 +56,13 @@ pattern in `Makefile` when ready.
   themselves on first launch from `nvim/lazy-lock.json`.
 - **Hyprland**: install Hyprland and the JaKooLit dependency stack (see
   `hypr/initial-boot.sh`); this repo does not automate that install.
+- **Firefox**: `firefox/userChrome.css` moves the tab strip + address bar to
+  the bottom of the window. Firefox's profile lives outside `~/.config`
+  (`~/snap/firefox/common/.mozilla/firefox/<profile>/` for the snap
+  package, `~/.mozilla/firefox/<profile>/` otherwise), and its sandbox
+  (snap) won't follow a symlink back into `~/.config`, so `make firefox`
+  **copies** the file into `<profile>/chrome/userChrome.css` instead of
+  symlinking it — re-run `make firefox` after editing the CSS. It also sets
+  the one required pref via `<profile>/user.js`:
+  `toolkit.legacyUserProfileCustomizations.stylesheets = true`. Fully
+  restart Firefox (not just close the window) for changes to apply.
