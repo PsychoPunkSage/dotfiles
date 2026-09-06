@@ -3,6 +3,9 @@ return {
   dependencies = {
     'williamboman/mason.nvim',
     'rcarriga/nvim-dap-ui',
+    -- go.nvim's `dap_debug_vt` option needs this; without it :GoDebug just
+    -- notifies "nvim-dap-virtual-text not found".
+    { 'theHamsta/nvim-dap-virtual-text', opts = {} },
   },
   config = function()
     -- local dap, dapui = require 'dap', require 'dapui'
