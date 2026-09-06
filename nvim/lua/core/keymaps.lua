@@ -40,7 +40,14 @@ vim.keymap.set('n', '<leader>bn', '<cmd> enew <CR>', opts) -- new buffer
 vim.keymap.set('n', '<leader>v', '<C-w>v', opts) -- split window vertically
 vim.keymap.set('n', '<leader>h', '<C-w>s', opts) -- split window horizontally
 vim.keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows equal width & height
-vim.keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
+-- close current split window; if it's the last one, close the file instead
+vim.keymap.set('n', '<leader>xs', function()
+  if #vim.api.nvim_tabpage_list_wins(0) > 1 then
+    vim.cmd('close')
+  else
+    vim.cmd('bdelete')
+  end
+end, { noremap = true, silent = true, desc = 'Close split (or buffer if last window)' })
 
 -- Navigate between splits/tmux panes: see plugins.tmux-navigator
 
