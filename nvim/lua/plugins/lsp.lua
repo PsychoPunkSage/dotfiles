@@ -206,19 +206,21 @@ return {
         settings = {
           gopls = {
             -- Analysis settings
+            -- Only names gopls actually knows; unknown keys make gopls
+            -- report a config error on every attach.
+            -- Removed for gopls >= 0.18: fillstruct, undeclaredname, useany
+            -- (they became built-in quick fixes, not toggleable analyzers).
             analyses = {
               unusedparams = true,
               unreachable = true,
-              fillstruct = true,
               nonewvars = true,
-              undeclaredname = true,
               unusedwrite = true,
-              useany = true,
             },
 
             -- Code lens
             codelenses = {
-              gc_details = false,
+              -- gc_details stopped being a code lens in gopls 0.17
+              -- (it is now the gopls.gc_details command).
               generate = true,
               regenerate_cgo = true,
               run_govulncheck = true,

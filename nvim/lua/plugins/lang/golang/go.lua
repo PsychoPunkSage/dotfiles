@@ -64,7 +64,9 @@ return {
       dap_debug = true,
       dap_debug_keymap = false, -- We handle DAP keymaps elsewhere
       dap_debug_gui = true,
-      dap_debug_vt = true,      -- Virtual text for debugging
+      dap_debug_vt = true,      -- Virtual text for debugging (needs
+                                -- theHamsta/nvim-dap-virtual-text, wired up
+                                -- in plugins/dap/dap.lua)
 
       -- Build tags
       build_tags = '',
@@ -72,12 +74,13 @@ return {
       -- Textobjects
       textobjects = true,
 
-      -- Auto format on save
-      auto_format = true,
-      auto_lint = true,
+      -- NOTE: `auto_format` / `auto_lint` are not go.nvim options (they were
+      -- silently ignored). Format-on-save is handled by the BufWritePre
+      -- autocmd below; linting by golangci-lint via none-ls.
 
-      -- Trouble integration
-      trouble = true,
+      -- Trouble integration (trouble.nvim is not installed -> keep false,
+      -- otherwise quickfix results just notify "trouble not found")
+      trouble = false,
 
       -- Luasnip integration
       luasnip = true,
