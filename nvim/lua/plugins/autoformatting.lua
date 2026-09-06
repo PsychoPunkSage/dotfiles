@@ -56,7 +56,9 @@ return {
       },
       -- Go linting (alternative to gopls built-in linting)
       diagnostics.golangci_lint.with {
-        extra_args = { '--fast' }, -- Faster linting
+        -- golangci-lint v2 removed `--fast`; the equivalent is `--fast-only`.
+        -- Passing `--fast` makes every save fail with "unknown flag: --fast".
+        extra_args = { '--fast-only' }, -- Faster linting
       },
     }
 
