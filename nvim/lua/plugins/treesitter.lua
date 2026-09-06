@@ -21,6 +21,14 @@ return { -- Highlight, edit, and navigate code
       'java',
       'groovy',
       'go',
+      -- go.nvim lazy-loads on ft = { go, gomod, gowork, gotmpl } and its
+      -- healthcheck wants these; without them those filetypes get no
+      -- highlighting/textobjects.
+      'gomod',
+      'gosum',
+      'gowork',
+      'gotmpl',
+      'comment',
       'gitignore',
       'graphql',
       'yaml',
