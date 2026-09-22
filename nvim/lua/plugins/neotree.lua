@@ -124,7 +124,47 @@ return {
       -- A list of functions, each representing a global custom command
       -- that will be available in all sources (if not overridden in `opts[source_name].commands`)
       -- see `:h neo-tree-custom-commands-global`
-      commands = {},
+      commands = {
+        -- Copy path/name of the node under the cursor to the system clipboard
+        copy_selector = function(state)
+          local node = state.tree:get_node()
+          local filepath = node:get_id()
+          local filename = node.name
+          local modify = vim.fn.fnamemodify
+
+          local vals = {
+            ['BASENAME'] = modify(filename, ':r'),
+            ['EXTENSION'] = modify(filename, ':e'),
+            ['FILENAME'] = filename,
+            ['PATH (CWD)'] = modify(filepath, ':.'),
+            ['PATH (HOME)'] = modify(filepath, ':~'),
+            ['PATH (ABSOLUTE)'] = filepath,
+            ['URI'] = vim.uri_from_fname(filepath),
+          }
+
+          local options = vim.tbl_filter(function(val)
+            return vals[val] ~= ''
+          end, vim.tbl_keys(vals))
+          if vim.tbl_isempty(options) then
+            vim.notify('No values to copy', vim.log.levels.WARN)
+            return
+          end
+          table.sort(options)
+
+          vim.ui.select(options, {
+            prompt = 'Copy to clipboard:',
+            format_item = function(item)
+              return ('%s: %s'):format(item, vals[item])
+            end,
+          }, function(choice)
+            local result = choice and vals[choice]
+            if result then
+              vim.fn.setreg('+', result)
+              vim.notify(('Copied: %s'):format(result))
+            end
+          end)
+        end,
+      },
       window = {
         position = 'right',
         width = 40,
@@ -167,6 +207,8 @@ return {
           ['d'] = 'delete',
           ['r'] = 'rename',
           ['y'] = 'copy_to_clipboard',
+          ['Y'] = 'copy_selector', -- pick which path/name form to yank to "+
+
           ['x'] = 'cut_to_clipboard',
           ['p'] = 'paste_from_clipboard',
           ['c'] = 'copy', -- takes text input for destination, also accepts the optional config.show_path option like "add":

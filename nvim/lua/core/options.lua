@@ -14,6 +14,7 @@ vim.o.expandtab = true                               -- Convert tabs to spaces (
 vim.o.scrolloff = 4                                  -- Minimal number of screen lines to keep above and below the cursor (default: 0)
 vim.o.sidescrolloff = 8                              -- Minimal number of screen columns either side of cursor if wrap is `false` (default: 0)
 vim.o.cursorline = false                             -- Highlight the current line (default: false)
+vim.o.guicursor = ""                                 -- Leave the terminal cursor alone (kitty forces a solid block)
 vim.o.splitbelow = true                              -- Force all horizontal splits to go below current window (default: false)
 vim.o.splitright = true                              -- Force all vertical splits to go to the right of current window (default: false)
 vim.o.hlsearch = false                               -- Set highlight on search (default: true)
